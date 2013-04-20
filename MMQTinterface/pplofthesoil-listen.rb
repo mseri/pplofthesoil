@@ -48,7 +48,7 @@ end
 
 ################################################################################
 # Actual interface
-
+#
 def listenToMQTTForSoilData(brokerAddress,dataManagerAddress,logFile,debugLevel = 1)
         
     puts "Start" if debugLevel >= 1
@@ -111,6 +111,9 @@ def listenToMQTTForSoilData(brokerAddress,dataManagerAddress,logFile,debugLevel 
 end
 ################################################################################
 
+################################################################################
+# Do you want to run it from CL? Here we go!
+#
 if __FILE__ == $0
     # script running from command line
     listenToMQTTForSoilData(brokerAddress,dataManagerAddress,logFile,CLIDebugLevel)
