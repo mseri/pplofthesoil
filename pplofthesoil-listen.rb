@@ -1,10 +1,40 @@
 #!/usr/bin/env ruby
+#coding: utf-8
 
 require 'rubygems'
 require 'mqtt'
 require 'json'
-require 'uri'
-require 'net/http'
+require 'httparty'
+
+################################################################################
+# Check the validity of the data received 
+# and remove the invalid data fields (and the control fields)
+def parseAnswer(result, what)
+    #control sequence. I.e. what="temperature" -> control="hasTemperature"
+    #but what="pH" -> control="hasPH" instead of control="hasPh" (what .capitalize does)
+    control = "has" + what.slice(0,1).capitalize + what.slice(1..-1)
+    #puts control
+    
+    if result[control]
+        #if there is temperature do nothing
+        puts what + " present!"
+    else
+        #otherwise delete the eventual temperature entry
+        result.delete(what)
+        puts what + " not present!"
+    end
+    
+    #puts result
+    
+    #and remove the control entry
+    result.delete(control)
+    
+    return result
+end
+################################################################################
+
+################################################################################
+# Actual interface
 
 puts "Start"
 
@@ -34,30 +64,33 @@ MQTT::Client.connect('m2m.eclipse.org',1883) do |client|
         end
         
         
-        if allRight and (!result.has_key?'lat' or !result.has_key?'lon' or !result.has_key?'time')
+        if allRight and (!result.has_key?'lat' or !result.has_key?'long' or !result.has_key?'time')
             #something bad happened, log it and go on with the next data message
             #raise 'Information Needed: we cannot proceed without timestamp and location.' 
             File.open('puts.soil.log', 'w') { |file| file.write("Information Needed: we cannot proceed without timestamp and location.\n Data received: "+ message) } 
         elsif allRight
         
-            if result['hasPH']
+            # Strip from the result the bad data
+            parameters = ["altitude", "pH", "moisture", "temperature"]
+            parameters.each {|param| result = parseAnswer(result, param) }
+            
+            #puts result
+            puts "Data updated!"
         
-        
-        
-            #it seems everything is all right, we can proceed sending the data to the messaging system
-
-            uri = URI.parse("http://soil-sample-api.herokuapp.com/soil_samples")
-            http = Net::HTTP.new(uri.host, uri.port)
-            req = Net::HTTP::Post.new(uri.path, result)
+            # It seems everything is all right, we can proceed sending the data to the messaging system
+            
+            # We first need to reformat the data
+            answer = "{" + result.map{|k,v| "'#{k}' => '#{v}'"}.join(", ") + "}"
+            
+            #puts answer
             
             begin
-                resp = http.request(req)
-                puts resp
+                HTTParty.post("http://soil-sample-api.herokuapp.com/soil_samples", {:query => {'soil_sample' => eval(answer)}})
             rescue 
                 File.open('puts.soil.log', 'w') { |file| file.write("Error in sending the data.") } 
             end            
         end
     end
 end
-
+################################################################################
 
