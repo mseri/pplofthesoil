@@ -73,6 +73,15 @@ def listenToMQTTForSoilData(brokerAddress,dataManagerAddress,logFile,debugLevel 
 
             # control JSON integrity
             begin
+                # JSON is sensitive to carriage returns, newlines and other small details
+                # we try to prevent these error stripping the bad characters before
+                # doing the real parsing.
+                message = message.gsub(/\n/,'')
+                message = message.gsub(/\r/,'')
+                message = message.gsub(' : ',':')
+                
+                puts message if debugLevel >=2
+                
                 # for each message parse the JSON data
                 result = JSON.parse(message)
                 allRight = true;
