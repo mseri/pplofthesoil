@@ -174,7 +174,7 @@ void loop() {
   Serial.print(",");
   Serial.print(pcwater,1);
   Serial.print(",");
-  Serial.println("NULL");
+  Serial.println("0.0");
   //Serial.print(",pH,");
   //$ID,temp,moisture,pH\n
   //Serial.println(sensorReading);

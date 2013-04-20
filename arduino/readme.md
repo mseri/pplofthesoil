@@ -1,4 +1,4 @@
-# Arduino Code for PeopleOfSoil
+# Arduino Code for PeopleOfTheSoil
 
 It runs on an AVR with an arduino bootloader.
 
