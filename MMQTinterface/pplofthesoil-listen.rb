@@ -20,25 +20,31 @@ CLIDebugLevel = 1
 ################################################################################
 # Check the validity of the data received 
 # and remove the invalid data fields (and the control fields)
-def parseAnswer(result, what)
-    # control sequence. I.e. what="temperature" -> control="hasTemperature"
-    # but what="pH" -> control="hasPH" instead of control="hasPh"
-    control = "has" + what.slice(0,1).capitalize + what.slice(1..-1)
-    #puts control
+def parseAnswer(result, what, debugLevel)
+    begin
+        # control sequence. I.e. what="temperature" -> control="hasTemperature"
+        # but what="pH" -> control="hasPH" instead of control="hasPh"
+        control = "has" + what.slice(0,1).capitalize + what.slice(1..-1)
+        #puts control
     
-    if result[control]
-        # if there is temperature do nothing
-        puts what + " present!"  if debugLevel >= 2
-    else
-        # otherwise delete the eventual temperature entry
-        result.delete(what)
-        puts what + " not present!"  if debugLevel >= 2
+        if result[control]
+            # if there is temperature do nothing
+            puts what + " present!"  if debugLevel >= 2
+        else
+            # otherwise delete the eventual temperature entry
+            result.delete(what)
+            puts what + " not present!"  if debugLevel >= 2
+        end
+    
+        #puts result 
+    
+        # and remove the control entry
+        result.delete(control)
+    rescue
+        # if something goes wrong we just log it and go on with new data...
+        File.open(logFile, 'a') { |file| file.write("Error in stripping the data.\n\n") }
+        result = nil
     end
-    
-    #puts result 
-    
-    # and remove the control entry
-    result.delete(control)
     
     return result
 end
@@ -74,38 +80,43 @@ def listenToMQTTForSoilData(brokerAddress,dataManagerAddress,logFile,debugLevel 
                 # if bad data write it on the log
                 File.open(logFile, 'a') { |file| file.write("Broken data received.\n Data: " + message + "\n\n") } 
                 allRight = false;
+                
+                puts "Pretty bad data!" if debugLevel >= 1
             end
         
         
             if allRight and (!result.has_key?'lat' or !result.has_key?'long' or !result.has_key?'time')
                 # Something bad happened, data is broken! Log it and go on with the next data message
-                File.open(logFile, 'a') { |file| file.write("Information Needed: we cannot proceed without timestamp and location.\n Data received: " + message + "\n\n") } 
+                File.open(logFile, 'a') { |file| file.write("Information Needed: we cannot proceed without timestamp and location.\n Data received: " + message + "\n\n") }
+                puts "Bad data!" if debugLevel >= 1
+                
             elsif allRight
             
                 # Strip from the result the bad data
                 parameters = ["altitude", "pH", "moisture", "temperature"]
-                parameters.each {|param| result = parseAnswer(result, param) }
+                parameters.each {|param| result = parseAnswer(result, param, debugLevel) }
                 
-                #puts result if debugLevel >= 2
-                puts "Data updated!"  if debugLevel >= 2
+                if result
+                    # puts result if debugLevel >= 2
+                    puts "Data updated!"  if debugLevel >= 2
         
-                # It seems everything is all right, we can proceed sending the data to the messaging system
+                    # It seems everything is all right, we can proceed sending the data to the messaging system
             
-                # We first need to reformat the data
-                answer = "{" + result.map{|k,v| "'#{k}' => '#{v}'"}.join(", ") + "}"
+                    # We first need to reformat the data
+                    answer = "{" + result.map{|k,v| "'#{k}' => '#{v}'"}.join(", ") + "}"
                 
-                puts answer if debugLevel >= 2
+                    puts answer if debugLevel >= 2
             
-                begin
-                    HTTParty.post(dataManagerAddress, {:query => {'soil_sample' => eval(answer)}})
+                    begin
+                        HTTParty.post(dataManagerAddress, {:query => {'soil_sample' => eval(answer)}})
                 
-                    puts "Data sent!" if debugLevel >= 1
-                rescue 
-                    File.open(logFile, 'a') { |file| file.write("Error in sending the data.\n\n") } 
+                        puts "Data sent!" if debugLevel >= 1
+                    rescue 
+                        File.open(logFile, 'a') { |file| file.write("Error in sending the data.\n\n") }
+                        puts "Something wrong with the data manager!" if debugLevel >= 1
+                    end
                 end
-                
             end
-            
         end
     end
 end
