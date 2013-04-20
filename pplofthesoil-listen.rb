@@ -43,7 +43,7 @@ end
 
 puts "Start"
 
-#connect to MQTT broker
+#connect to MQTT broker (we use the free m2m.eclipse.org for the tests)
 MQTT::Client.connect('m2m.eclipse.org',1883) do |client|
     
     puts "Client on"
@@ -64,7 +64,7 @@ MQTT::Client.connect('m2m.eclipse.org',1883) do |client|
             puts result
         rescue
             #if bad data write it on the log
-            File.open('puts.soil.log', 'w') { |file| file.write("Broken data received.\n Data: " + message) } 
+            File.open('puts.soil.log', 'w') { |file| file.write("Broken data received.\n Data: " + message + "\n\n") } 
             allRight = false;
         end
         
@@ -72,7 +72,7 @@ MQTT::Client.connect('m2m.eclipse.org',1883) do |client|
         if allRight and (!result.has_key?'lat' or !result.has_key?'long' or !result.has_key?'time')
             #something bad happened, log it and go on with the next data message
             #raise 'Information Needed: we cannot proceed without timestamp and location.' 
-            File.open('puts.soil.log', 'w') { |file| file.write("Information Needed: we cannot proceed without timestamp and location.\n Data received: "+ message) } 
+            File.open('puts.soil.log', 'w') { |file| file.write("Information Needed: we cannot proceed without timestamp and location.\n Data received: " + message + "\n\n") } 
         elsif allRight
         
             # Strip from the result the bad data
@@ -92,7 +92,7 @@ MQTT::Client.connect('m2m.eclipse.org',1883) do |client|
             begin
                 HTTParty.post("http://soil-sample-api.herokuapp.com/soil_samples", {:query => {'soil_sample' => eval(answer)}})
             rescue 
-                File.open('puts.soil.log', 'w') { |file| file.write("Error in sending the data.") } 
+                File.open('puts.soil.log', 'w') { |file| file.write("Error in sending the data.\n\n") } 
             end            
         end
     end
