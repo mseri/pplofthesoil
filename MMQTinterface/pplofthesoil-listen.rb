@@ -11,6 +11,11 @@ require 'mqtt'
 require 'json'
 require 'httparty'
 
+logfile = 'puts.soil.log'
+brokerAddress = 'm2m.eclipse.org'
+dataManagerAddress = 'http://soil-sample-api.herokuapp.com/soil_samples'
+
+
 ################################################################################
 # Check the validity of the data received 
 # and remove the invalid data fields (and the control fields)
@@ -44,7 +49,7 @@ end
 puts "Start"
 
 #connect to MQTT broker (we use the free m2m.eclipse.org for the tests)
-MQTT::Client.connect('m2m.eclipse.org',1883) do |client|
+MQTT::Client.connect(brokerAddress,1883) do |client|
     
     puts "Client on"
     
@@ -60,19 +65,16 @@ MQTT::Client.connect('m2m.eclipse.org',1883) do |client|
             #for each message parse the JSON data
             result = JSON.parse(message)
             allRight = true;
-            
-            puts result
         rescue
             #if bad data write it on the log
-            File.open('puts.soil.log', 'w') { |file| file.write("Broken data received.\n Data: " + message + "\n\n") } 
+            File.open(logfile, 'a') { |file| file.write("Broken data received.\n Data: " + message + "\n\n") } 
             allRight = false;
         end
         
         
         if allRight and (!result.has_key?'lat' or !result.has_key?'long' or !result.has_key?'time')
-            #something bad happened, log it and go on with the next data message
-            #raise 'Information Needed: we cannot proceed without timestamp and location.' 
-            File.open('puts.soil.log', 'w') { |file| file.write("Information Needed: we cannot proceed without timestamp and location.\n Data received: " + message + "\n\n") } 
+            # Something bad happened, data is broken! Log it and go on with the next data message
+            File.open(logfile, 'a') { |file| file.write("Information Needed: we cannot proceed without timestamp and location.\n Data received: " + message + "\n\n") } 
         elsif allRight
         
             # Strip from the result the bad data
@@ -90,9 +92,11 @@ MQTT::Client.connect('m2m.eclipse.org',1883) do |client|
             #puts answer
             
             begin
-                HTTParty.post("http://soil-sample-api.herokuapp.com/soil_samples", {:query => {'soil_sample' => eval(answer)}})
+                HTTParty.post(dataManagerAddress, {:query => {'soil_sample' => eval(answer)}})
+                
+                puts "Data sent!"
             rescue 
-                File.open('puts.soil.log', 'w') { |file| file.write("Error in sending the data.\n\n") } 
+                File.open(logfile, 'a') { |file| file.write("Error in sending the data.\n\n") } 
             end            
         end
     end
