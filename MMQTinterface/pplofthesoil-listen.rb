@@ -5,7 +5,6 @@
 # Author: Marcello Seri
 # 
 
-
 require 'rubygems'
 require 'mqtt'
 require 'json'
@@ -15,7 +14,7 @@ logFile = 'puts.soil.log'
 brokerAddress = 'm2m.eclipse.org'
 dataManagerAddress = 'http://soil-sample-api.herokuapp.com/soil_samples'
 CLIDebugLevel = 1
-
+subscribedTopic = '/pots/soil/#'
 
 ################################################################################
 # Check the validity of the data received 
@@ -49,29 +48,10 @@ def parseAnswer(result, what, debugLevel)
     return result
 end
 
-
-
-
-################################################################################
-# Actual interface
-#
-def listenToMQTTForSoilData(brokerAddress,dataManagerAddress,logFile,debugLevel = 1)
-        
-    puts "Start" if debugLevel >= 1
-
-    # connect to MQTT broker (we use the free m2m.eclipse.org for the tests)
-    MQTT::Client.connect(brokerAddress,1883) do |client|
-    
-        puts "Client on" if debugLevel >= 1
-    
-        # subscribe to the topic "People of the Soil - Soil Data" listening for any message
-        client.get('/pots/soil/#') do |topic,message|
-    
-            puts "Got Message" if debugLevel >= 1
-    
-            allRight = nil
-
+def elaborateMMQTMessage(message, dataManagerAddress, logFile, debugLevel)
             # control JSON integrity
+            allRight = nil
+            
             begin
                 # JSON is sensitive to carriage returns, newlines and other small details
                 # we try to prevent these error stripping the bad characters before
@@ -126,6 +106,29 @@ def listenToMQTTForSoilData(brokerAddress,dataManagerAddress,logFile,debugLevel 
                     end
                 end
             end
+end
+
+
+################################################################################
+# Actual interface
+#
+def listenToMQTTForSoilData(brokerAddress,subscribedTopic,dataManagerAddress,logFile,debugLevel = 1)
+        
+    puts "Start" if debugLevel >= 1
+
+    # connect to MQTT broker (we use the free m2m.eclipse.org for the tests)
+    MQTT::Client.connect(brokerAddress,1883) do |client|
+    
+        puts "Client on" if debugLevel >= 1
+    
+        # subscribe to the topic "People of the Soil - Soil Data" listening for any message
+        client.get(subscribedTopic) do |topic,message|
+    
+            puts "Got Message" if debugLevel >= 1
+    
+            elaborateMMQTMessage(message, dataManagerAddress, logFile, debugLevel)
+
+            
         end
     end
 end
@@ -135,7 +138,8 @@ end
 # Do you want to run it from CL? Here we go!
 #
 if __FILE__ == $0
+    
     # script running from command line
-    listenToMQTTForSoilData(brokerAddress,dataManagerAddress,logFile,CLIDebugLevel)
+    listenToMQTTForSoilData(brokerAddress,subscribedTopic,dataManagerAddress,logFile,CLIDebugLevel)
     
 end
