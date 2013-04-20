@@ -1,5 +1,10 @@
 #!/usr/bin/env ruby
 #coding: utf-8
+#
+# People of the Soil - MQTT Listener
+# Author: Marcello Seri
+# 
+
 
 require 'rubygems'
 require 'mqtt'
