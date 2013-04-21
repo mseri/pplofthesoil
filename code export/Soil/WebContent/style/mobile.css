@@ -1,0 +1,121 @@
+.pageHeader{
+	padding: 30px 10px 30px 40px;
+}
+.pageFooter{
+	padding: 10px 10px 5px 40px;
+}
+#SiteLogo{
+	position: absolute;
+	top: 0px;
+	right: 20px;
+}
+#Navigation {
+	display: table;
+	width: 100%;
+	border-spacing: 20px 0;
+}
+.navTab{
+	display: table-cell;
+	background-color: #eaeaea;
+	padding: 10px 30px;
+}
+.active{
+	color: white;
+	background-color: #adadad;
+}
+.inactive{
+	background-color: #eaeaea;
+}
+.activeContHolder{
+	background-color: #adadad;
+	min-height: 200px;
+}
+#MapCanvas{
+	width: 100%;
+	height: 100%;
+}
+#DateRange{
+	overflow: scroll;
+	width: 100%;
+}
+#DateHolder{
+	display: table;
+	border-spacing: 20px 0;
+}
+.dateBox{
+	display: table-cell;
+	padding: 10px 30px;
+}
+
+.siteReading{
+	padding: 10px;
+	background-color: #eaeaea;
+	margin-bottom: 40px;
+}
+
+#ReadingsHolder{
+}
+.notesVal div{
+	width: 100%;
+}
+
+.inactiveNotes{
+	color: #adadad;
+}
+
+.notesVal textarea{
+	width: 100%;
+	height: 50px;
+}
+
+#ReadingsHolder{
+	margin-top: 40px;
+	color: #7a7a7a;
+}
+.readingName{
+	margin-bottom: 0;
+	padding-bottom: 0;
+}
+.readingTS{
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+.readingTS li{
+	padding: 10px 0;
+	margin: 0;
+}
+.myReadImage{
+	float: right;
+	height: 50px;
+}
+.readingValues {
+	color: white;
+}
+.readingValues ul{
+	list-style-type: none;
+	font-size: 120%;
+	margin: 0;
+	padding:0;
+}
+
+.readVal{
+	font-size: 200%;
+	float: right;
+	margin-top: -10px;
+}
+
+.readingValues li{
+	background-color: #adadad;
+	margin: 0 0 20px 0;
+	padding: 30px;
+}
+
+#MenuIcon{
+	margin-top: 10px;
+	margin-left: 20px;
+}
+
+.submitBtnHolder{
+	display: none;
+}

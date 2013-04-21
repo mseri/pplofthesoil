@@ -16,3 +16,4 @@ BROKER_PORT = 1883
 DATAM_ADDRESS = 'http://soil-sample-api.herokuapp.com/soil_samples'
 DEBUG_LVL = 1
 TOPIC = '/pots/soil/#'
+
