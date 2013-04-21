@@ -104,7 +104,7 @@ def elaborateMQTTMessage(message, dataManagerAddress, logFile, debugLevel)
                 
                 if result
                     # puts result if debugLevel >= 2
-                    puts "Data updated!"  if debugLevel >= 2
+                    puts "Data parsed!"  if debugLevel >= 2
         
                     # It seems everything is all right, we can proceed sending the data to the messaging system
             
