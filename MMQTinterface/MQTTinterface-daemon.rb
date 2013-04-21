@@ -4,6 +4,14 @@
 # People of the Soil - MQTT Listener Daemon
 # Author: Marcello Seri
 #
+#
+# ----------------------------------------------------------------------------
+# "THE BEER-WARE LICENSE" (Revision 42):
+# Marcello Seri wrote this file. As long as you retain this notice you
+# can do whatever you want with this stuff. If we meet some day, and you think
+# this stuff is worth it, you can buy me a beer in return Poul-Henning Kamp
+# ----------------------------------------------------------------------------
+#
 
 require 'rubygems'
 require 'daemons'
@@ -19,12 +27,11 @@ Dir.mkdir(LOG_DIR) unless File.exists?(LOG_DIR)
 # ruby MQTTinterface-daemon.rb [start|stop|status|reload|run]
 #
 # e.g.
-# ./MQTTinterface-daemon.rb status
 # ./MQTTinterface-daemon.rb start
 #
 # for debugging purpose:
 # ./MQTTinterface-daemon.rb run
 #
-# more on http://daemons.rubyforge.org/
+# see http://daemons.rubyforge.org/ for more informations
 
 Daemons.run('MQTTinterfaceD.rb', { :app_name => 'MQTTinterface-daemon', :backtrace => true, :log_output => true, :dir => LOG_DIR})
