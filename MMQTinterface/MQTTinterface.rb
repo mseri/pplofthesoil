@@ -10,12 +10,6 @@ require 'mqtt'
 require 'json'
 require 'httparty'
 
-logFile = 'puts.soil.log'
-brokerAddress = 'm2m.eclipse.org'
-dataManagerAddress = 'http://soil-sample-api.herokuapp.com/soil_samples'
-CLIDebugLevel = 1
-subscribedTopic = '/pots/soil/#'
-
 ################################################################################
 # Check the validity of the data received 
 # and remove the invalid data fields (and the control fields)
@@ -31,7 +25,7 @@ def parseAnswer(result, what, debugLevel)
             puts what + " present!"  if debugLevel >= 2
         else
             # otherwise delete the eventual temperature entry
-            result.delete(what)
+            result["what"] = "nil"
             puts what + " not present!"  if debugLevel >= 2
         end
     
@@ -48,7 +42,7 @@ def parseAnswer(result, what, debugLevel)
     return result
 end
 
-def elaborateMMQTMessage(message, dataManagerAddress, logFile, debugLevel)
+def elaborateMQTTMessage(message, dataManagerAddress, logFile, debugLevel)
             # control JSON integrity
             allRight = nil
             
@@ -74,16 +68,24 @@ def elaborateMMQTMessage(message, dataManagerAddress, logFile, debugLevel)
             end
         
         
-            if allRight and (!result.has_key?'lat' or !result.has_key?'long' or !result.has_key?'time')
+            if allRight and (!result.has_key?'lat' or !result.has_key?'long' or !result.has_key?'time' or !result.has_key?'id')
                 # Something bad happened, data is broken! Log it and go on with the next data message
                 File.open(logFile, 'a') { |file| file.write("Information Needed: we cannot proceed without timestamp and location.\n Data received: " + message + "\n\n") }
                 puts "Bad data!" if debugLevel >= 1
                 
+            elsif allRight and (result["lat"] == "NULL" or result["long"] == "NULL" or result["time"] == "NULL" or result["id"] == "NULL")
+                # Something bad happened, data is broken! Log it and go on with the next data message
+                File.open(logFile, 'a') { |file| file.write("Information Needed: we cannot proceed without timestamp and location.\n Data received: " + message + "\n\n") }
+                puts "NULL data!" if debugLevel >= 1
             elsif allRight
+                
+                # Rename 'id' field to make it compatible with the server
+                result["device_id"] = result["id"]
+                result.delete("id")
             
                 # Strip from the result the bad data
                 parameters = ["altitude", "pH", "moisture", "temperature"]
-                parameters.each {|param| result = parseAnswer(result, param, debugLevel) }
+                parameters.each {|param| result = parseAnswer(result, param, debugLevel)}
                 
                 if result
                     # puts result if debugLevel >= 2
@@ -112,12 +114,12 @@ end
 ################################################################################
 # Actual interface
 #
-def listenToMQTTForSoilData(brokerAddress,subscribedTopic,dataManagerAddress,logFile,debugLevel = 1)
+def listenToMQTTForSoilData(brokerAddress,brokerPort,subscribedTopic,dataManagerAddress,logFile,debugLevel = 1)
         
     puts "Start" if debugLevel >= 1
 
     # connect to MQTT broker (we use the free m2m.eclipse.org for the tests)
-    MQTT::Client.connect(brokerAddress,1883) do |client|
+    MQTT::Client.connect(brokerAddress,brokerPort) do |client|
     
         puts "Client on" if debugLevel >= 1
     
@@ -126,7 +128,7 @@ def listenToMQTTForSoilData(brokerAddress,subscribedTopic,dataManagerAddress,log
     
             puts "Got Message" if debugLevel >= 1
     
-            elaborateMMQTMessage(message, dataManagerAddress, logFile, debugLevel)
+            elaborateMQTTMessage(message, dataManagerAddress, logFile, debugLevel)
 
             
         end
@@ -140,6 +142,6 @@ end
 if __FILE__ == $0
     
     # script running from command line
-    listenToMQTTForSoilData(brokerAddress,subscribedTopic,dataManagerAddress,logFile,CLIDebugLevel)
+    puts "Please run it from command line with 'ruby CLIrun.rb'"
     
 end
