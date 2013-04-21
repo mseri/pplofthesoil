@@ -30,12 +30,15 @@ either expressed or implied, of the FreeBSD Project.
 */
 
 #include <OneWire.h>
-
+#include <EEPROM.h>
+#include <TrueRandom.h>
 const int analogPin = A0;   // The pin that the moisture sensor is attached to
 const int ledCount = 3;    // the number of LEDs in the bar graph
 OneWire  ds(10);  // on pin 10
 int ledPins[] = { 
   3, 4, 5};   // an array of pin numbers to which LEDs are attached
+const int lenUUID = 16;
+char uuid[16];
 
 
 void setup() {
@@ -44,6 +47,19 @@ void setup() {
     pinMode(ledPins[thisLed], OUTPUT); 
   }
     Serial.begin(9600);
+  if (EEPROM.read(0)=='$') {
+    for (int k =  1;k<=lenUUID;k++) {
+      uuid[k-1] = EEPROM.read(k);
+    }
+  } else {
+    Serial.println("No UUID found");
+    TrueRandom.uuid(uuid);
+    EEPROM.write(0,'$');
+    for (int k =  1;k<=lenUUID;k++) {
+      EEPROM.write(k,uuid[k-1]);
+    }
+  }
+      
 }
 
 void loop() {
