@@ -13,13 +13,14 @@
 import serial
 import time
 import netifaces
-import pygeoip
+#import pygeoip
 import io
 import string
 import mqttpublisher
 
 #port_name = '/dev/ttyUSB0'
-port_name = '/dev/tty.usbmodemfd121'
+#port_name = '/dev/tty.usbmodemfd121'
+port_name = '/dev/ttyACM0'
 
 # configure and open serial port for data read
 try:
@@ -28,10 +29,11 @@ except serial.SerialException:
 	print("Unable to open serial port: aborting.\n");
 	exit();
 
-serial_port.open()
 if serial_port.isOpen() != True:
-	print("Unable to open serial port: aborting.\n");
-	exit()
+	serial_port.open()
+	if serial_port.isOpen() != True:
+		print("Unable to open serial port: aborting.\n");
+		exit()
 
 # read and upload the data: forever
 while True:
@@ -39,6 +41,7 @@ while True:
 	data_list = None
 	while data_list == None:
 		data = serial_port.readline()
+#		print data
 		data_list = string.split(data, ',')
 
 	if len(data_list) < 4:
@@ -58,23 +61,23 @@ while True:
 
 	# fetch IP, and from that GEOIP Data
 	#net_dict = netifaces.ifaddresses('wlan0')
-	net_dict = netifaces.ifaddresses('en0')
+#	net_dict = netifaces.ifaddresses('en0')
 	#print net_dict
-	ip_dict = net_dict[2]
-	ip_addr = ip_dict[0]["addr"]
+#	ip_dict = net_dict[2]
+#	ip_addr = ip_dict[0]["addr"]
 	#print ip_addr
 
 	#city_db_path = '/usr/share/GeoIP/GeoIPCity.dat'
-	city_db_path = './GeoIPCity.dat'
-	geoip = pygeoip.GeoIP(city_db_path)
-	geoip_dict = geoip.record_by_addr(ip_addr)
+#	city_db_path = './GeoIPCity.dat'
+#	geoip = pygeoip.GeoIP(city_db_path)
+#	geoip_dict = geoip.record_by_addr(ip_addr)
 	#print geoip_dict
-	if geoip_dict != None:
-		latitude = geoip_dict["latitude"]
-		longitude = geoip_dict["logitude"]
-	else:
-		latitude = 'NULL'
-		longitude = 'NULL'
+#	if geoip_dict != None:
+#		latitude = geoip_dict["latitude"]
+#		longitude = geoip_dict["logitude"]
+#	else:
+	latitude = '51.522833'
+	longitude = '-0.085179'
 
 	# End nasty location finding
 	#####
@@ -103,7 +106,7 @@ while True:
 		json += "\"temperature\" : \"" + temperature + "\"\n"
 	json += "}"
 
-	print json
+#	print json
 
 	mqttpublisher.sendSensorData(json)
 
