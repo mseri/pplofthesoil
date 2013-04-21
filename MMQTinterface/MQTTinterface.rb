@@ -33,7 +33,7 @@ def parseAnswer(result, what, debugLevel)
             puts what + " present!"  if debugLevel >= 2
         else
             # otherwise delete the eventual temperature entry
-            result["what"] = "nil"
+            result[what] = "nil"
             puts what + " not present!"  if debugLevel >= 2
         end
     
