@@ -29,7 +29,11 @@ def parseAnswer(result, what, debugLevel)
         #puts control
     
         if result[control]
-            # if there is temperature do nothing
+            # if there is something do nothing unless it is null, 
+            # in such case translate it for the DB service
+            if result[what]=="NULL"
+                result[what]="nil"
+            end
             puts what + " present!"  if debugLevel >= 2
         else
             # otherwise delete the eventual temperature entry
