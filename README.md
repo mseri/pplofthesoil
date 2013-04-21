@@ -19,10 +19,11 @@ Or you can let your hardware prepare the data and send it using (more or less) a
 ## Data acquisition module
 
 Requirements:
-- ruby 
+- ruby >= 1.8
 - mqtt gem
 - json gem
-- httparyy gem
+- httparty gem
+- daemons gem
 
 Register to MQTT Broker: m2m.eclipse.org:1833  
 Subscribe to Topic: /pots/soil/#  
