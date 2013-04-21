@@ -94,6 +94,9 @@ def elaborateMQTTMessage(message, dataManagerAddress, logFile, debugLevel)
                 # Rename 'id' field to make it compatible with the server
                 result["device_id"] = result["id"]
                 result.delete("id")
+                
+                # Add "device probe" to make server happy
+                result["device"] = "probe"
             
                 # Strip from the result the bad data
                 parameters = ["altitude", "pH", "moisture", "temperature"]
