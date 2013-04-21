@@ -10,6 +10,10 @@ require 'daemons'
 
 require 'settings'
 
+# create log directory if not present
+
+Dir.mkdir(LOG_DIR) unless File.exists?(LOG_DIR)
+
 #
 # Usage:
 # ruby MQTTinterface-daemon.rb [start|stop|status|reload|run]

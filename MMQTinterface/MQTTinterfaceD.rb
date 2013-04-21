@@ -17,7 +17,7 @@ mqtt.connect do
     topic,message = mqtt.get
     
     # output for log file
-    puts "[#{Time.now.to_s}] Mqtt new message published on Topic:#{topic} Message:#{message}" if DEBUG_LVL >= 2
+    puts "[#{Time.now.to_s}] Mqtt new message published on Topic:#{topic}" if DEBUG_LVL >= 2 # Message:#{message}
     
     elaborateMQTTMessage(message, DATAM_ADDRESS, LOG_DIR+LOG_FILE, DEBUG_LVL)
     

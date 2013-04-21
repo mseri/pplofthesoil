@@ -21,6 +21,10 @@ require 'settings'
 # script running from command line
 #
 
+# create log directory if not present
+
+Dir.mkdir(LOG_DIR) unless File.exists?(LOG_DIR)
+
 if !ARGV.empty? and ( ARGV[0] == "0" or ARGV[0] == "1" or ARGV[0] == "2" )
     dbgLvl = eval(ARGV[0])
 else 
