@@ -23,24 +23,28 @@ For more information on what we want to do you can read:
 
 The Git repository contains:
 
-- The **presentation** of our work: SOILPres-v3.pdf
-- The full implementation of the **probe** (hardware and software) and the **PCB** schematic to build a cheap and effective probe: probe folder
-- The interface to the **MQTT** service that translates the data and sends it to the DB: MQTTinterface folder
-- The **DB and SMS** service (hosted on another Git repo): text-message-and-database-api folder
-- The **mobile app** to have access to the data: mobileapp folder
+- The **presentation** of our work: *SOILPres-v3.pdf*
+- The full implementation of the **probe** (hardware and software) and the **PCB** schematic to build a cheap and effective probe: *probe* folder
+- The interface to the **MQTT** service that translates the data and sends it to the DB: *MQTTinterface* folder
+- The **DB and SMS** service (hosted on another Git repo): *text-message-and-database-api* folder
+- The **mobile app** to have access to the data: *mobileapp* folder
 
-* * * * * * * * * * 
+* * * * * * * * * *    
+* * * * * * * * * *    
+
 # Something more technical for us and potential collaborators
 
 ## Data structure
 
-Data Sample of the form  
+Data readings are of the form  
 
 {      "id": "182791",      "time": "13:56:13 20/04/2013",      "lat": "97.03125",      "long": "107.2890",      "hasAltitude":true,      "altitude": "10",      "hasPH":true,      "pH":"7",      "hasMoisture":true,      "moisture":"97",      "hasTemperature":true,      "temperature":"40"  }  
 
-to be sent to
+and must be sent to
 - MQTT Broker: m2m.eclipse.org:1833
 - Topic: /pots/soil
+
+id, time, lat, long MUST be present and not NULL, otherwise the data is sent directly to /dev/null
 
 It can be done as simple and boring as using <http://mqtt.io/>    
 Or you can let your hardware prepare the data and send it using (more or less) any programming language: <http://mqtt.org/software>
