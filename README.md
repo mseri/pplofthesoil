@@ -5,6 +5,10 @@ For more information on what we want to do you can read:
 - <http://spaceappschallenge.org/challenge/soil-testing-kit>
 - <http://spaceappschallenge.org/project/people-of-the-soil/>
 
+A reduced-size/image-quality version of the presentation is available in PDF format on the Git repo.
+
+ 
+
 ## Data structure
 ### Data Sample  
 {      "id": "182791",      "time": "13:56:13 20/04/2013",      "lat": "97.03125",      "long": "107.2890",      "hasAltitude":true,      "altitude": "10",      "hasPH":true,      "pH":"7",      "hasMoisture":true,      "moisture":"97",      "hasTemperature":true,      "temperature":"40"  }  
