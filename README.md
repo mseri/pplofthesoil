@@ -9,9 +9,11 @@ We kept in mind that not all the world is as lucky as us and there are plenty of
 - an API to disseminate information via SMS or web
 - a wonderful and light web application that can run on old and recent phones and gives access to the data with a simple and nice interface.
 
-Look what we did going to the [Git Hub page](https://github.com/mseri/pplofthesoil), looking for our [hashtag #pplofthesoil](http://bit.ly/124FU89) on Twitter or reading our ["storified" weekend story](http://bit.ly/ZIbJ3x)
+Look what we did going to the [Git Hub page](https://github.com/mseri/pplofthesoil), looking for our [hashtag #pplofthesoil](http://bit.ly/124FU89) on Twitter, watching our [presentation](http://bit.ly/ZIbJ3x) or reading our ["storified" weekend story](http://bit.ly/17dYVqT)
 
 And with our small collaboration with solsola we are ready to fly on the space and collect extra terrestrial soil data!
+
+![People of the Soil in London](http://pbs.twimg.com/media/BIY1IiyCYAI3Vgq.jpg)
 
 * * * * * * *
 
