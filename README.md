@@ -5,9 +5,14 @@ For more information on what we want to do you can read:
 - <http://spaceappschallenge.org/challenge/soil-testing-kit>
 - <http://spaceappschallenge.org/project/people-of-the-soil/>
 
-A reduced-size/image-quality version of the presentation is available in PDF format on the Git repo.
+The Git repository contains:
 
- 
+- The **presentation** of our work: SOILPres-v3.pdf
+- The full implementation of the **probe** (hardware and software) and the **PCB** schematic to build a cheap and effective probe: probe folder
+- The interface to the **MQTT** service that translates the data and sends it to the DB: MQTTinterface folder
+- The **DB and SMS** service (hosted on another Git repo): text-message-and-database-api folder
+- The **mobile app** to have access to the data: mobileapp folder
+
 
 ## Data structure
 ### Data Sample  
