@@ -25,15 +25,3 @@ to be sent to
 It can be as simple and boring as using <http://mqtt.io/>    
 Or you can let your hardware prepare the data and send it using (more or less) any programming language: <http://mqtt.org/software>
 
-## Data acquisition module
-
-Requirements:
-- ruby >= 1.8
-- mqtt gem
-- json gem
-- httparty gem
-- daemons gem
-
-Register to MQTT Broker: m2m.eclipse.org:1833  
-Subscribe to Topic: /pots/soil/#  
-
