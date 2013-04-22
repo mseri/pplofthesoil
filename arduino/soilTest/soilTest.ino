@@ -38,7 +38,7 @@ OneWire  ds(10);  // on pin 10
 int ledPins[] = { 
   3, 4, 5};   // an array of pin numbers to which LEDs are attached
 const int lenUUID = 16;
-char uuid[16];
+byte uuid[16];
 
 
 void setup() {
@@ -63,10 +63,11 @@ void setup() {
 }
 
 void loop() {
+  delay(5000);
   // read the potentiometer:
   long timer = millis();
   long sensorReading=0, j=0;
-  while (millis() - timer < 500) {
+  while (millis() - timer < 5000) {
     delay(5);
     sensorReading += analogRead(analogPin);
     j++;
@@ -183,19 +184,27 @@ void loop() {
   }
   celsius = (float)raw / 16.0;
   fahrenheit = celsius * 1.8 + 32.0;
-  Serial.print("$LW10001,");
+  Serial.print("$LW");
+  for (int k = 0;k<lenUUID;k++) {
+  printHex(uuid[k]);
+  }
+  Serial.print(",");
   //Serial.print(millis());
   //Serial.print(",Celsius,");
   Serial.print(celsius);
   Serial.print(",");
   Serial.print(pcwater,1);
   Serial.print(",");
-  Serial.println("0.0");
-  //Serial.print(",pH,");
-  //$ID,temp,moisture,pH\n
-  //Serial.println(sensorReading);
+  Serial.println("NULL");
   
 }
 
-
+void printHex(byte number) {
+  int topDigit = number >> 4;
+  int bottomDigit = number & 0x0f;
+  // Print high hex digit
+  Serial.print( "0123456789ABCDEF"[topDigit] );
+  // Low hex digit
+  Serial.print( "0123456789ABCDEF"[bottomDigit] );
+}
 
