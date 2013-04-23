@@ -19,8 +19,8 @@
 #        N = 2 for extremely verbose output
 #
 
-require 'MQTTinterface'
-require 'settings'
+require File.dirname(__FILE__) +'/MQTTinterface.rb'
+require File.dirname(__FILE__) + '/settings.rb'
 
 ################################################################################
 # Do you want to run it from CL? Here we go!

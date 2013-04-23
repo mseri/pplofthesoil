@@ -15,7 +15,7 @@
 # Demonized version of the MQTT listener. You can run it and control it with:
 #  ruby MQTTinterface-daemon.rb [start|stop|status|reload|run]
 
-require File.dirname(__FILE__) + '/MQTTinterface'
+require File.dirname(__FILE__) + '/MQTTinterface.rb'
 
 mqtt = MQTT::Client.new(BROKER_ADDRESS, BROKER_PORT)
 mqtt.connect do

@@ -16,7 +16,7 @@
 require 'rubygems'
 require 'daemons'
 
-require 'settings'
+require File.dirname(__FILE__) + '/settings.rb'
 
 # create log directory if not present
 
