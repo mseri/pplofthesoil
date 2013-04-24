@@ -39,7 +39,8 @@ int ledPins[] = {
   3, 4, 5};   // an array of pin numbers to which LEDs are attached
 const int lenUUID = 16;
 byte uuid[16];
-
+int bright = 5;
+boolean up= true;
 
 void setup() {
   // loop over the pin array and set them all to output:
@@ -63,11 +64,11 @@ void setup() {
 }
 
 void loop() {
-  delay(5000);
+  
   // read the potentiometer:
   long timer = millis();
   long sensorReading=0, j=0;
-  while (millis() - timer < 5000) {
+  while (millis() - timer < 500) {
     delay(5);
     sensorReading += analogRead(analogPin);
     j++;
@@ -82,16 +83,36 @@ void loop() {
   pcwater = max(pcwater,0);
   // print out the value you read:
   // loop over the LED array:
+  timer = millis();
+  
+  
+  while (millis() - timer < 5000) {
+    delay(10);
+    if (bright > 250) {
+      up = false;
+    } else if (bright < 5) {
+      up = true;
+    }
+    if (up) {
+      bright++;
+    } else {
+      bright--;
+    }
   for (int thisLed = 0; thisLed < ledCount; thisLed++) {
     // if the array element's index is less than ledLevel,
     // turn the pin for this element on:
     if (thisLed < ledLevel) {
-      digitalWrite(ledPins[thisLed], HIGH);
+      if ( thisLed != 1) {
+        analogWrite(ledPins[thisLed], bright);
+      } else {
+        analogWrite(ledPins[thisLed], min(255,bright+150));
+      }
     } 
     // turn off all pins higher than the ledLevel:
     else {
       digitalWrite(ledPins[thisLed], LOW); 
     }
+  }
   }
     byte i;
   byte present = 0;
