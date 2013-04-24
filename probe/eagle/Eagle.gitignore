@@ -27,6 +27,7 @@
 *.drl
 *.gpi
 *.pls
+*.mpd
 
 *.drd
 *.drd.*
