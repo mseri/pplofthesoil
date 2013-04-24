@@ -10,7 +10,7 @@
 #
 
 LOG_DIR = 'logs/'
-LOG_FILE = 'puts.soil.log'
+LOG_FILE = 'pots.soil.log'
 BROKER_ADDRESS = 'm2m.eclipse.org'
 BROKER_PORT = 1883
 DATAM_ADDRESS = 'http://soil-sample-api.herokuapp.com/soil_samples'

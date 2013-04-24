@@ -28,9 +28,13 @@ require File.dirname(__FILE__) + '/settings.rb'
 # script running from command line
 #
 
-# create log directory if not present
+# create log file and directory if not present
 
 Dir.mkdir(LOG_DIR) unless File.exists?(LOG_DIR)
+
+if !File.exists?(LOG_DIR+LOG_FILE)
+	File.open(LOG_DIR+LOG_FILE, "w") {}
+end
 
 if !ARGV.empty? and ( ARGV[0] == "0" or ARGV[0] == "1" or ARGV[0] == "2" )
     dbgLvl = eval(ARGV[0])

@@ -18,9 +18,13 @@ require 'daemons'
 
 require File.dirname(__FILE__) + '/settings.rb'
 
-# create log directory if not present
+# create log file and directory if not present
 
 Dir.mkdir(LOG_DIR) unless File.exists?(LOG_DIR)
+
+if !File.exists?(LOG_DIR+LOG_FILE)
+	File.open(LOG_DIR+LOG_FILE, "w") {}
+end
 
 #
 # Usage:
