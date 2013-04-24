@@ -47,7 +47,7 @@ def parseAnswer(result, what, debugLevel)
         result.delete(control)
     rescue
         # if something goes wrong we just log it and go on with new data...
-        File.open(logFile, 'a') { |file| file.write("Error in stripping the data.\n\n") }
+        File.open(logFile, 'a') { |file| file.write(Time.now.ctime + ": Error in stripping the data.\n\n") }
         result = nil
     end
     
@@ -73,7 +73,7 @@ def elaborateMQTTMessage(message, dataManagerAddress, logFile, debugLevel)
                 allRight = true;
             rescue
                 # if bad data write it on the log
-                File.open(logFile, 'a') { |file| file.write("Broken data received.\n Data: " + message + "\n\n") } 
+                File.open(logFile, 'a') { |file| file.write(Time.now.ctime + ": Broken data received.\n Data: " + message + "\n\n") } 
                 allRight = false;
                 
                 puts "Pretty bad data!" if debugLevel >= 1
@@ -82,12 +82,12 @@ def elaborateMQTTMessage(message, dataManagerAddress, logFile, debugLevel)
         
             if allRight and (!result.has_key?'lat' or !result.has_key?'long' or !result.has_key?'time' or !result.has_key?'id')
                 # Something bad happened, data is broken! Log it and go on with the next data message
-                File.open(logFile, 'a') { |file| file.write("Information Needed: we cannot proceed without timestamp and location.\n Data received: " + message + "\n\n") }
+                File.open(logFile, 'a') { |file| file.write(Time.now.ctime + ": Information Needed: we cannot proceed without timestamp and location.\n Data received: " + message + "\n\n") }
                 puts "Bad data!" if debugLevel >= 1
                 
             elsif allRight and (result["lat"] == "NULL" or result["long"] == "NULL" or result["time"] == "NULL" or result["id"] == "NULL")
                 # Something bad happened, data is broken! Log it and go on with the next data message
-                File.open(logFile, 'a') { |file| file.write("Information Needed: we cannot proceed without timestamp and location.\n Data received: " + message + "\n\n") }
+                File.open(logFile, 'a') { |file| file.write(Time.now.ctime + ": Information Needed: we cannot proceed without timestamp and location.\n Data received: " + message + "\n\n") }
                 puts "NULL data!" if debugLevel >= 1
             elsif allRight
                 
@@ -95,8 +95,10 @@ def elaborateMQTTMessage(message, dataManagerAddress, logFile, debugLevel)
                 result["device_id"] = result["id"]
                 result.delete("id")
                 
-                # Add "device probe" to make server happy
-                result["device"] = "probe"
+                if !result.has_key?'device'
+                    # Add "device probe" to make server happy
+                    result["device"] = "probe"
+                end
             
                 # Strip from the result the bad data
                 parameters = ["altitude", "pH", "moisture", "temperature"]
@@ -116,9 +118,9 @@ def elaborateMQTTMessage(message, dataManagerAddress, logFile, debugLevel)
                     begin
                         HTTParty.post(dataManagerAddress, {:query => {'soil_sample' => eval(answer)}})
                 
-                        puts "Data sent!" if debugLevel >= 1
+                        puts Time.now.ctime + ": Data sent!" if debugLevel >= 1
                     rescue 
-                        File.open(logFile, 'a') { |file| file.write("Error in sending the data.\n\n") }
+                        File.open(logFile, 'a') { |file| file.write(Time.now.ctime + ": Error in sending the data.\n\n") }
                         puts "Something wrong with the data manager!" if debugLevel >= 1
                     end
                 end
@@ -141,7 +143,7 @@ def listenToMQTTForSoilData(brokerAddress,brokerPort,subscribedTopic,dataManager
         # subscribe to the topic "People of the Soil - Soil Data" listening for any message
         client.get(subscribedTopic) do |topic,message|
     
-            puts "Got Message" if debugLevel >= 1
+            puts Time.now.ctime + ": New data received!" if debugLevel >= 1
     
             elaborateMQTTMessage(message, dataManagerAddress, logFile, debugLevel)
 
