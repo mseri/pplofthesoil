@@ -34,4 +34,4 @@ Dir.mkdir(LOG_DIR) unless File.exists?(LOG_DIR)
 #
 # see http://daemons.rubyforge.org/ for more informations
 
-Daemons.run('MQTTinterfaceD.rb', { :app_name => 'MQTTinterface-daemon', :backtrace => true, :log_output => true, :dir => LOG_DIR})
+Daemons.run('MQTTinterfaceD.rb', { :app_name => 'MQTTinterface-daemon', :backtrace => false, :log_output => true, :dir => LOG_DIR})
