@@ -57,9 +57,7 @@ The possible implications and improvement for the future are the most variuos. H
 - Create an easy to use application to collect and send the data from probes that cannot be connected to wifi or bluetooth networks
 - Make the system independent from us and working on a global scale
 - Add some finer controls on the database to avoid fake data
-- Add ability to interact with grower nations API
 - Implement a flexible API to make the soil data available to researchers and any other in need
-- Create a complete database of fruit and vegetables and the soil/weather characteristic needed to grow them. In this way we can give precise information of what is best to plant in a certain soil based on the collected data
 - Improve the Web App to include data analysis, comparisons and infographics
 - Go to other planet (see below)
 
@@ -102,7 +100,20 @@ The project is released under Eclipse Public License 1.0
 
 Data readings are of the form  
 
-{      "id": "182791",      "time": "13:56:13 20/04/2013",      "lat": "97.03125",      "long": "107.2890",      "hasAltitude":true,      "altitude": "10",      "hasPH":true,      "pH":"7",      "hasMoisture":true,      "moisture":"97",      "hasTemperature":true,      "temperature":"40"  }  
+{  
+    "id": "182791",  
+    "time": "13:56:13 20/04/2013",  
+    "lat": "97.03125",  
+    "long": "107.2890",  
+    "hasAltitude":true,  
+    "altitude": "10",  
+    "hasPH":true,  
+    "pH":"7",  
+    "hasMoisture":true,  
+    "moisture":"97",  
+    "hasTemperature":true,  
+    "temperature":"40"  
+}  
 
 and must be sent to
 - MQTT Broker: m2m.eclipse.org:1833
