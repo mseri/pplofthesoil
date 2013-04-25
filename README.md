@@ -72,6 +72,8 @@ And with our small collaboration with solsola we are ready to fly on the space a
 
 Look what we did going to the [Git Hub page](https://github.com/mseri/pplofthesoil), looking for our [hashtag #pplofthesoil](http://bit.ly/124FU89) on Twitter, watching our [presentation](http://bit.ly/ZIbJ3x) or reading our ["storified" weekend story](http://bit.ly/17dYVqT)
 
+![Our Team](img/team.png)
+
 Additionally you can read:    
 - [Soil Testing Kit Challenge](http://spaceappschallenge.org/challenge/soil-testing-kit)
 - [People of the Soil -- Project Page](http://spaceappschallenge.org/project/people-of-the-soil/)
