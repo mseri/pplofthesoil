@@ -13,7 +13,9 @@ We kept in mind that not all the world is as lucky as us and there are plenty of
 
 # Project Soil
 
-![First drafto of Soil](img/project_pic.JPG) Our team started from the beginning to look at all our various backgrounds and skill and reformulate the challenge splitting it in a series of smaller ones that each of us could face. 
+We spent the first part of the challeng looking at all our different backgrounds and skills and reformulating the challenge in a series of smaller ones that we feelt we could face. 
+
+![First drafto of Soil](img/project_pic.JPG)
 
 As you can see from the image below, **Soil** is made by three big interlaced projects, each of them with a particular focus: acquiring data, collecting it and make it available.
 
