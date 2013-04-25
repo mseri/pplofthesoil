@@ -45,7 +45,7 @@ While the SMS data goes directly to the database, all the rest of the communicat
 
 Again keeping in mind to consume as less bandwith as possible, we designed and developed an extremely intuitive and nice application, completely based on HTML and CSS, and with nearly no image. In this way people can access the data using any device, not just the last generation of smartphones, consuming nearly no bandwidth!
 
-![Web App](img\webapp.png)
+![Web App](img/webapp.png)
 
 You can already test our web app going to [Soil App](http://www.soil-app.appspot.com/)
 
