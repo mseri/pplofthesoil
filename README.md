@@ -93,6 +93,7 @@ The possible implications and improvement for the future are the most variuos. H
 - Add some finer controls on the database to avoid fake data.
 - Implement a robust and flexible API to make the soil data available to researchers and any other in need.
 - Improve the Web App to include data analysis, comparisons and infographics.
+- Add support to other languages.
 - Go to other planet (see below).
 
 ![More to come on the web app](img/moretocome.png)
