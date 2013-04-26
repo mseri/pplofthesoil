@@ -61,7 +61,7 @@ The possible implications and improvement for the future are the most variuos. H
 - Improve the Web App to include data analysis, comparisons and infographics
 - Go to other planet (see below)
 
-![More to come on the web app](img/webapp.png)
+![More to come on the web app](img/moretocome.png)
 
 ## Project Soil on other Planets
 And with our small collaboration with solsola we are ready to fly on the space and collect extra terrestrial soil data!
