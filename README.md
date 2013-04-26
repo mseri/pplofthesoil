@@ -1,4 +1,5 @@
 # People of the Soil
+**(co-winners of the London Nasa Space Apps Challenge 2013)** 
 
 During the Space Apps Challenge 2013, at the Google Campus in London, we have developed **Soil**: an extremely cheap and easy to use system to collect and manage soil data.
 
