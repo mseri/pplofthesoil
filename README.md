@@ -1,11 +1,13 @@
 # People of the Soil
 **(co-winners of the London Nasa Space Apps Challenge 2013)** 
 
-During the Space Apps Challenge 2013, at the Google Campus in London, we have developed **Soil**: an extremely cheap and easy to use system to collect and manage soil data.
+During the Space Apps Challenge 2013, at the Google Campus in London, we have developed **Project Soil**: an extremely cheap and easy to use system to collect and manage soil data.
 
 ![People of the Soil in London](http://pbs.twimg.com/media/BIY1IiyCYAI3Vgq.jpg)
 
-We kept in mind that not all the world is as lucky as us and there are plenty of places where internet is slow or completely absent and where there is much less money around. With **Soil** we created an open system that includes:
+We kept in mind that not all the world is as lucky as us and there are plenty of places where internet is slow or completely absent and where there is much less money around. 
+
+**Project Soil** is an open system that includes:
 
 - an extremely cheap (~3£) digital soil testing kit to collect data, and eventually send it
 - a light protocol to send the data using web, apps or even SMS and collect it on a centralised database
@@ -16,9 +18,9 @@ We kept in mind that not all the world is as lucky as us and there are plenty of
 
 We spent the first part of the challeng looking at all our different backgrounds and skills and reformulating the challenge in a series of smaller ones that we feelt we could face. 
 
-![First drafto of Soil](img/project_pic.JPG)
+![First drafto of Project Soil](img/project_pic.JPG)
 
-As you can see from the image below, **Soil** is made by three big interlaced projects, each of them with a particular focus: acquiring data, collecting it and make it available.
+As you can see from the image below, **Project Soil** is made by three big interlaced projects, each of them with a particular focus: acquiring data, collecting it and make it available.
 
 ![Project Soil in bites](img/project_structure.png)
 
@@ -28,7 +30,7 @@ In this part of the projected we aimed to create a proof-of-concept soil testing
 
 ![The Probe v0.1](img/proto0.png)
 
-The hardware team realized in an amazingly short time a working prototype of probe to collect Soil data. In the first version an Arduino was collecting data from various sensors and sending it to a Rasperry Pi programmed to forward it to our database.
+The hardware team realized in an amazingly short time a working prototype of probe to collect soil data. In the first version an Arduino was collecting data from various sensors and sending it to a Rasperry Pi programmed to forward it to our database.
 
 ![Testing the Probe v0.1](img/proto01.jpg)
 
@@ -81,7 +83,7 @@ Again keeping in mind to consume as less bandwith as possible, we designed and d
 
 ![Web App](img/webapp.png)
 
-You can already test our web app going to [Soil App](http://www.soil-app.appspot.com/)
+You can already test our web app going to [Project Soil App](http://www.soil-app.appspot.com/)
 
 ## Ideas for the future
 The possible implications and improvement for the future are the most variuos. Here there is a small list of what we could and would like to achieve:
@@ -102,7 +104,7 @@ The possible implications and improvement for the future are the most variuos. H
 ## Project Soil on other Planets
 And with our small collaboration with solsola we are ready to fly on the space and collect extra terrestrial soil data!
 
-![Solsola and Soil on Mars](img/mars.png)
+![Solsola and Project Soil on Mars](img/mars.png)
 
 # More Images and Informations
 
