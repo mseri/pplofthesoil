@@ -33,9 +33,9 @@ From that prototype they engineered a small and cheap device that you can simply
 
 ## The SMS service
 
-Keeping in mind that not all the world is covered by internet, we used the twilio API to create a service to send the data directly through SMS. Moreover, when enough data is available, the SMS service is able to answer to suggest what it is better to plant and when, and answer to other simple questions.
+Keeping in mind that not all the world is covered by internet, we used the twilio API to create a service to send the data directly through SMS. This makes it good for use in more developing regions of the world.
 
-![SMS service in action](img/sms2.jpg)
+![A small screenshot of the webapp and the SMS service](img/sms2.jpg)
 
 ## Data collection
 
