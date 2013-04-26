@@ -62,6 +62,14 @@ Keeping in mind that not all the world is covered by internet, we used the twili
 
 ![A small screenshot of the webapp and the SMS service](img/sms2.jpg)
 
+Send a text to _01952 787011_ containing a list of readings for the following parameters pH, temperature, moisture, lat/latitude and long/longitude and then will be added to the dataset. The list of key, values can be separated by whitespace or , delimited and the order doesn't matter
+
+```
+pH = 7.2, lat=51.9972, long=-0.7421, temp=35
+```
+
+You will receive back a message confirming the data your sent and that it had been saved to the database.
+
 ## Data collection
 
 While the SMS data goes directly to the database, all the rest of the communication is made by means of [MQTT](http://mqtt.org), a machine-to-machine (M2M)/"Internet of Things" connectivity protocol designed to be extremely lightweight. In this way we can move all the management of the data to our server and consume as less power and bandwith as possible on the clients.
