@@ -23,13 +23,38 @@ As you can see from the image below, **Soil** is made by three big interlaced pr
 
 ## The probe
 
-The hardware team realized in an amazingly short time a working prototype of probe to collect Soil data. In the first version an Arduino was collecting data from various sensors and sending it to a Rasperry Pi programmed to forward it to our database.
+In this part of the projected we aimed to create a proof-of-concept soil testing kit that could be miniaturised and mass produced. This can then upload recorded soil data, taken over a period of several weeks, to a central database via a phone application or computer interface.
 
 ![The Probe v0.1](img/proto0.png)
 
-From that prototype they engineered a small and cheap device that you can simply plug in the field and leave alone collecting the data. Afterward it is enough to have a USB connection to collect the data and send it to our servers.
+The hardware team realized in an amazingly short time a working prototype of probe to collect Soil data. In the first version an Arduino was collecting data from various sensors and sending it to a Rasperry Pi programmed to forward it to our database.
+
+![Testing the Probe v0.1](img/proto01.jpg)
+
+In addition, the aim was to create a PCB schematic and layout to implement this system realistically and cost such a device. CAD models were created to aid development and concept presentation.
+
+The project uses a DS18B20 temperature sensor and a transistor amplified simple moisture sensor.
+
+Moisture is displayed as an estimated percentage volume of water to soil. Completely soaked soil will hold up to around 50% water content and so a measurement of resistance of pure water is taken as the calibration mark for 50% and the probe held in air is taken as the calibration for 0%.
+
+The hardware prototype is a proof of concept, a final device should use a much cheaper MPU such as an ATMEGA48A-MU 4K memory, 8-Bit MPU. This can be sourced (in bulk) for less than 80p per unit.
+
+### The probe and its price breakdown
+
+In fact, from that prototype the hardware team engineered a small and cheap device that you can simply plug in the field and leave alone collecting the data. Afterward it is enough to have a USB connection to collect the data and send it to our servers.
 
 ![The Probe v.1.1 - PCB](img/proto1.jpg)
+
+For whom may be interested, the price of the final device can be overestimated as follows:
+
+- ATMEGA48A £0.80   
+- Resistor £0.10   
+- DS18B20 £0.85   
+- CR2032 Coin Cell £0.39   
+- Coin cell holder £0.20   
+- PCB manufacture £1.00   
+
+**Total £3.34**
 
 ## The SMS service
 
@@ -52,14 +77,15 @@ You can already test our web app going to [Soil App](http://www.soil-app.appspot
 ## Ideas for the future
 The possible implications and improvement for the future are the most variuos. Here there is a small list of what we could and would like to achieve:
 
-- Improve the probe to make it cheaper, stronger and with longer battery life
-- Add wifi/bluetooth/NFC capability to a bigger version of the probe that would not require laptop, smartphones or raspberry pi to send the data
-- Create an easy to use application to collect and send the data from probes that cannot be connected to wifi or bluetooth networks
-- Make the system independent from us and working on a global scale
-- Add some finer controls on the database to avoid fake data
-- Implement a flexible API to make the soil data available to researchers and any other in need
-- Improve the Web App to include data analysis, comparisons and infographics
-- Go to other planet (see below)
+- Implementations of more chemical and pH sensors could be made extremely cheaply and in bulk by using thick film printing processes. _This could be an avenue for further development although the technology is still heavily in it's infancy._
+- Improve the probe to make it cheaper, stronger and with longer battery life.
+- Add wifi/bluetooth/NFC capability to a bigger version of the probe that would not require laptop, smartphones or raspberry pi to send the data.
+- Create an easy to use application to collect and send the data from probes that cannot be connected to wifi or bluetooth networks.
+- Make the system independent from us and working on a global scale.
+- Add some finer controls on the database to avoid fake data.
+- Implement a robust and flexible API to make the soil data available to researchers and any other in need.
+- Improve the Web App to include data analysis, comparisons and infographics.
+- Go to other planet (see below).
 
 ![More to come on the web app](img/moretocome.png)
 
