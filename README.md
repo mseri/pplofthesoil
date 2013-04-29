@@ -112,7 +112,8 @@ Look what we did going to the [Git Hub page](https://github.com/mseri/pploftheso
 
 ![Our Team](img/team.png)
 
-Additionally you can read:    
+Additionally you can read:  
+- [Our video on Vimeo](http://vimeo.com/65080796)  
 - [Soil Testing Kit Challenge](http://spaceappschallenge.org/challenge/soil-testing-kit)
 - [People of the Soil -- Project Page](http://spaceappschallenge.org/project/people-of-the-soil/)
 
