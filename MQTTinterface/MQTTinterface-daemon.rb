@@ -18,9 +18,13 @@ require 'daemons'
 
 require File.dirname(__FILE__) + '/settings.rb'
 
-# create log directory if not present
+# create log file and directory if not present
 
 Dir.mkdir(LOG_DIR) unless File.exists?(LOG_DIR)
+
+if !File.exists?(LOG_DIR+LOG_FILE)
+	File.open(LOG_DIR+LOG_FILE, "w") {}
+end
 
 #
 # Usage:
@@ -34,4 +38,4 @@ Dir.mkdir(LOG_DIR) unless File.exists?(LOG_DIR)
 #
 # see http://daemons.rubyforge.org/ for more informations
 
-Daemons.run('MQTTinterfaceD.rb', { :app_name => 'MQTTinterface-daemon', :backtrace => true, :log_output => true, :dir => LOG_DIR})
+Daemons.run('MQTTinterfaceD.rb', { :app_name => 'MQTTinterface-daemon', :backtrace => false, :log_output => true, :dir => LOG_DIR})

@@ -69,8 +69,12 @@ def elaborateMQTTMessage(message, dataManagerAddress, logFile, debugLevel)
                 puts message if debugLevel >=2
                 
                 # for each message parse the JSON data
-                result = JSON.parse(message)
-                allRight = true;
+                begin 
+                    result = JSON.parse(message)
+                    allRight = true;
+                rescue JSON::ParserError 
+                    allRight = false;
+                end
             rescue
                 # if bad data write it on the log
                 File.open(logFile, 'a') { |file| file.write(Time.now.ctime + ": Broken data received.\n Data: " + message + "\n\n") } 
