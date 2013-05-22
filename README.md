@@ -117,6 +117,11 @@ Additionally you can read:
 - [Soil Testing Kit Challenge](http://spaceappschallenge.org/challenge/soil-testing-kit)
 - [People of the Soil -- Project Page](http://spaceappschallenge.org/project/people-of-the-soil/)
 
+Congratulation to all the winners of the 2013 International Space Apps Challenge.
+
+We didn't win but we've got a Honorable Mention on the Global Impact category!!!!
+![Honorable Mention for Project Soil](img/GIHM.png))
+
 * * * * * * * 
 
 The Git repository contains:
