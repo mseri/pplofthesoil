@@ -1,0 +1,1 @@
+<div data-role="footer" data-theme="c" class="pageFooter">&nbsp;</div>
