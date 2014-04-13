@@ -122,7 +122,7 @@ We didn't win but we've got a Honorable Mention on the Global Impact category!!!
 
 ![Honorable Mention for Project Soil](img/GIHM.png)
 
-![We have a new printed version of the Soil Probe - Thanks Ben](img/Soil1.1.png)
+![We have a new printed version of the Soil Probe - Thanks Ben](img/soil1.1.png)
 
 * * * * * * * 
 
